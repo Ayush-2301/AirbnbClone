@@ -4,7 +4,10 @@ import { BiSearch } from "react-icons/bi";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { CgProfile } from "react-icons/cg";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 const NavBar = () => {
+  const userName = useSelector((state) => state.auth.user);
+  console.log(userName);
   return (
     <div className="flex justify-between items-center  p-4  border-b">
       <div>
@@ -24,10 +27,11 @@ const NavBar = () => {
       </div>
       <Link
         to={"/auth/login"}
-        className="flex justify-center space-x-2 items-center p-2 rounded-full border hover:shadow-md transition-shadow ease-in hover:cursor-pointer"
+        className="flex justify-center space-x-2 items-center p-2 rounded-full border hover:shadow-md transition-shadow ease-in hover:cursor-pointer font-poppins font-medium"
       >
         <RxHamburgerMenu size={20} className="font-bold" />
         <CgProfile size={30} className="text-gray-500" />
+        {userName && <p className="pr-1 capitalize">{userName}</p>}
       </Link>
     </div>
   );
