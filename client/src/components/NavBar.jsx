@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 const NavBar = () => {
   const userName = useSelector((state) => state.auth.user);
-  console.log(userName);
+  // console.log(userName);
   return (
     <div className="flex justify-between items-center  p-4  border-b">
       <div>
@@ -26,7 +26,7 @@ const NavBar = () => {
         </button>
       </div>
       <Link
-        to={"/auth/login"}
+        to={userName ? "/account" : "/auth/login"}
         className="flex justify-center space-x-2 items-center p-2 rounded-full border hover:shadow-md transition-shadow ease-in hover:cursor-pointer font-poppins font-medium"
       >
         <RxHamburgerMenu size={20} className="font-bold" />

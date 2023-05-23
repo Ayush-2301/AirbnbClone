@@ -14,3 +14,6 @@ button {
 button.primary {
   @apply bg-primary p-2 w-full rounded-full text-white hover:shadow-md;
 }
+.link-primary {
+  @apply bg-primary px-6 py-2 rounded-full text-white hover:shadow-md;
+}

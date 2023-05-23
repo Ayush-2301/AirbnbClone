@@ -10,8 +10,8 @@ import {
 
 const initalState = {
   user: null,
-  error: null,
-  isLoading: false,
+  error: false,
+  email: null,
 };
 
 const authReducer = (state = initalState, action) => {
@@ -20,26 +20,30 @@ const authReducer = (state = initalState, action) => {
     case LOGIN_USER_SUCCESS:
       return {
         ...state,
-        user: action.payload,
-        error: null,
+        user: action.payload.name,
+        email: action.payload.email,
+        error: false,
       };
     case REGISTER_USER_ERROR:
     case LOGIN_USER_ERROR:
       return {
         ...state,
         user: null,
-        error: action.payload,
+        email: null,
+        error: true,
       };
     case LOGOUT_USER:
       return {
         ...state,
         user: null,
-        error: null,
+        email: null,
+        error: false,
       };
     case SET_USER:
       return {
         ...state,
-        user: action.payload,
+        user: action.payload.name,
+        email: action.payload.email,
       };
     default:
       return state;

@@ -14,8 +14,10 @@ const errorHandlesMiddleware = require("./middleware/authentication");
 
 app.use(express.json());
 app.use(cors());
+
 app.use("/auth", authRouter);
-app.use("/user/profile", authenticateUser, profile);
+// app.use("/user/profile", authenticateUser, profile);
+
 app.use(notFoundMiddleware);
 app.use(errorHandlesMiddleware);
 
