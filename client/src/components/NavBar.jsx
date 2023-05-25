@@ -15,8 +15,8 @@ const NavBar = () => {
           <img className="w-[35px]" src={logo} alt="airnb logo" />
         </Link>
       </div>
-      <div className="flex border p-2 px-4 font-poppins rounded-full shadow text-[14px] hover:shadow-md transition-shadow ease-in hover:cursor-pointer">
-        <div className="flex divide-x-[1.5px] justify-center items-center">
+      <div className="hidden sm:flex border p-2 px-4 font-poppins rounded-full shadow text-[14px] hover:shadow-md transition-shadow ease-in hover:cursor-pointer">
+        <div className=" flex divide-x-[1.5px] justify-center items-center ">
           <div className="px-2">Anywhere</div>
           <div className="px-2">Any week</div>
           <div className="px-2 text-gray-400 font-thin">Add Guests</div>

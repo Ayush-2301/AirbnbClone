@@ -12,8 +12,19 @@ button {
   @apply bg-gray-300 font-poppins;
 }
 button.primary {
-  @apply bg-primary p-2 w-full rounded-full text-white hover:shadow-md;
+  @apply bg-primary p-2 w-full rounded-full text-white hover:shadow-md transition-shadow ease-in;
+}
+button.secondary {
+  @apply bg-primary p-2 w-full rounded-xl text-white hover:shadow-md transition-shadow ease-in;
 }
 .link-primary {
   @apply bg-primary px-6 py-2 rounded-full text-white hover:shadow-md;
+}
+
+input[type="text"] {
+  @apply w-full border my-1 py-2 px-3 rounded-2xl font-poppins;
+}
+
+textarea {
+  @apply w-full h-[100px] border rounded-xl py-2 px-3 my-1 font-poppins;
 }

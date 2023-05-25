@@ -15,14 +15,17 @@ const App = () => {
     dispatch(setUser());
   }, []);
   return (
-    <Routes>
-      <Route path="/" element={<LandingPage />}>
-        <Route index element={<IndexPage />} />
-        <Route path="/auth/login" element={<LoginPage />} />
-        <Route path="/auth/register" element={<RegisterPage />} />
-        <Route path="/account/:subpage?" element={<AccountPage />} />
-      </Route>
-    </Routes>
+    <div className="relative">
+      <Routes>
+        <Route path="/" element={<LandingPage />}>
+          <Route index element={<IndexPage />} />
+          <Route path="/auth/login" element={<LoginPage />} />
+          <Route path="/auth/register" element={<RegisterPage />} />
+          <Route path="/account/:subpage?" element={<AccountPage />} />
+          <Route path="/account/:subpage/:action" element={<AccountPage />} />
+        </Route>
+      </Routes>
+    </div>
   );
 };
 
