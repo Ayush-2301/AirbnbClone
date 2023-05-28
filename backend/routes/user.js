@@ -1,6 +1,19 @@
-// const express = require("express");
-// const router = express.Router();
+const express = require("express");
+const router = express.Router();
+const { uploadPhotos, uploadPhotosByDevice } = require("../controllers/user");
+const multer = require("multer");
 
-// router.get("/profile");
+const photosMiddleware = multer({
+  dest: "../backend/controllers/uploads/",
+});
 
-// module.exports = router;
+router.post("/upload-by-link", uploadPhotos);
+router.post(
+  "/upload-by-device",
+  photosMiddleware.array("photos", 100),
+  uploadPhotosByDevice
+);
+
+module.exports = router;
+
+// router.post("/delete-by-link", deletePhotos);

@@ -7,16 +7,17 @@ const app = express();
 const connectDB = require("./db/connect");
 const authenticateUser = require("./middleware/authentication");
 const authRouter = require("./routes/auth");
-const profile = require("./routes/user");
+const userRouter = require("./routes/user");
 
 const notFoundMiddleware = require("./middleware/not-found");
 const errorHandlesMiddleware = require("./middleware/authentication");
 
 app.use(express.json());
 app.use(cors());
+app.use("/uploads", express.static(__dirname + "/controllers/uploads"));
 
 app.use("/auth", authRouter);
-// app.use("/user/profile", authenticateUser, profile);
+app.use("/user/places", authenticateUser, userRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlesMiddleware);
