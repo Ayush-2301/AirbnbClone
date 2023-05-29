@@ -1,6 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const { uploadPhotos, uploadPhotosByDevice } = require("../controllers/user");
+const {
+  uploadPhotos,
+  uploadPhotosByDevice,
+  createPlaces,
+} = require("../controllers/user");
 const multer = require("multer");
 
 const photosMiddleware = multer({
@@ -13,6 +17,7 @@ router.post(
   photosMiddleware.array("photos", 100),
   uploadPhotosByDevice
 );
+router.post("/create", createPlaces);
 
 module.exports = router;
 

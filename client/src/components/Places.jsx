@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import perksList from "../constant/perks";
 import {
@@ -12,6 +12,9 @@ import {
 } from "react-icons/all";
 import axios from "axios";
 import "../axiosConfig";
+import { useDispatch } from "react-redux";
+import { createPlaces } from "../redux/actions/places";
+
 const Places = () => {
   const { action } = useParams();
   const [showPerks, SetShowPerks] = useState(false);
@@ -21,12 +24,15 @@ const Places = () => {
     address: "",
     photos: [],
     description: "",
+    perksCollection: [],
     extraInfo: "",
     checkIn: "",
     checkOut: "",
     maxGuest: "",
   });
   const [photosValue, setPhotosValue] = useState("");
+
+  const dispatch = useDispatch();
 
   const getIconComponent = (logo) => {
     switch (logo) {
@@ -46,9 +52,13 @@ const Places = () => {
   };
 
   function handlePerksSelection(perks) {
-    console.log(perks.name);
     if (!perksArray.includes(perks))
       setPerksArray((prevState) => {
+        perks.state = true;
+        setValues({
+          ...values,
+          perksCollection: [...values.perksCollection, perks.name],
+        });
         return [...prevState, perks];
       });
   }
@@ -100,7 +110,15 @@ const Places = () => {
 
   function handleDeletePerks(perk) {
     setPerksArray((prevState) => {
-      return prevState.filter((item) => item !== perk);
+      const updatedPerksCollection = values.perksCollection.filter(
+        (item) => item !== perk.name
+      );
+      setValues({ ...values, perksCollection: updatedPerksCollection });
+
+      return prevState.filter((item) => {
+        perk.state = false;
+        return item !== perk;
+      });
     });
   }
 
@@ -137,6 +155,25 @@ const Places = () => {
     setPhotosValue("");
   }
 
+  const handlePlaceSubmition = (e) => {
+    e.preventDefault();
+    try {
+      dispatch(createPlaces(values));
+      console.log("success");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  //  title: "",
+  //   address: "",
+  //   photos: [],
+  //   description: "",
+  //   perksCollection: [],
+  //   extraInfo: "",
+  //   checkIn: "",
+  //   checkOut: "",
+  //   maxGuest: "",
+
   return (
     <div className=" flex flex-col justify-center items-center mt-8 font-poppins h-full mb-8 mx-auto px-4">
       {action !== "new" && (
@@ -153,7 +190,10 @@ const Places = () => {
 
       {action === "new" && (
         <div className="self-start w-full">
-          <form className="flex flex-col space-y-4">
+          <form
+            onSubmit={handlePlaceSubmition}
+            className="flex flex-col space-y-4"
+          >
             <div className="flex flex-col">
               <p className=" text-2xl ml-1">Title</p>
               <input
@@ -207,6 +247,7 @@ const Places = () => {
                 <div>
                   <label className="border p-4 rounded-xl flex justify-center items-center w-[150px] h-full text-gray-500 hover:cursor-pointer">
                     <input
+                      multiple
                       type="file"
                       className="hidden"
                       onChange={handleUploadingPhotosByDevice}

@@ -23,7 +23,6 @@ const login = async (req, res) => {
 };
 
 const register = async (req, res) => {
-  console.log(req.body);
   const user = await User.create({ ...req.body });
   const token = user.createJWT();
   res
