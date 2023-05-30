@@ -3,7 +3,7 @@ require("express-async-errors");
 const express = require("express");
 const cors = require("cors");
 const app = express();
-// const Places = require("./models/Places");
+const Places = require("./models/Places");
 const connectDB = require("./db/connect");
 const authenticateUser = require("./middleware/authentication");
 const authRouter = require("./routes/auth");
@@ -19,10 +19,10 @@ app.use("/uploads", express.static(__dirname + "/controllers/uploads"));
 app.use("/auth", authRouter);
 app.use("/user/places", authenticateUser, userRouter);
 
-// app.get("/delete", async (req, res) => {
-//   await Places.deleteMany({});
-//   res.json("delete");
-// });
+app.get("/delete", async (req, res) => {
+  await Places.deleteMany({});
+  res.json("delete");
+});
 
 app.use(notFoundMiddleware);
 app.use(errorHandlesMiddleware);

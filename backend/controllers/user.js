@@ -33,7 +33,17 @@ const createPlaces = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ place });
 };
 
-module.exports = { uploadPhotos, uploadPhotosByDevice, createPlaces };
+const getAllPlaces = async (req, res) => {
+  const places = await Place.find({ owner: req.user.userId });
+  res.status(StatusCodes.OK).json({ places, count: places.length });
+};
+
+module.exports = {
+  uploadPhotos,
+  uploadPhotosByDevice,
+  createPlaces,
+  getAllPlaces,
+};
 
 // const deletePhotos = (req, res) => {
 //   const { link } = req.body;

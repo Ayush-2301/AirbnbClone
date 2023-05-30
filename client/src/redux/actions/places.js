@@ -19,3 +19,14 @@ export const createPlaces = (placeDetail) => async (dispatch) => {
     dispatch({ type: SET_LOADING, payload: false });
   }
 };
+export const getAllPlaces = () => async (dispatch) => {
+  try {
+    dispatch({ type: SET_LOADING, payload: true });
+    const { data } = await axios.get("/user/places/getAllPlaces");
+    dispatch({ type: FETCH_PLACES_SUCCESS, payload: data });
+    dispatch({ type: SET_LOADING, payload: false });
+  } catch (error) {
+    dispatch({ type: FETCH_PLACES_ERROR });
+    dispatch({ type: SET_LOADING, payload: false });
+  }
+};

@@ -4,6 +4,7 @@ const {
   uploadPhotos,
   uploadPhotosByDevice,
   createPlaces,
+  getAllPlaces,
 } = require("../controllers/user");
 const multer = require("multer");
 
@@ -18,7 +19,7 @@ router.post(
   uploadPhotosByDevice
 );
 router.post("/create", createPlaces);
-
+router.get("/getAllPlaces", getAllPlaces);
 module.exports = router;
 
 // router.post("/delete-by-link", deletePhotos);

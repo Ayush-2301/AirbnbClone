@@ -1,14 +1,25 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { Profile, Places } from "../components/index";
 import { RiHotelLine } from "react-icons/ri";
 import { BsFillPersonFill } from "react-icons/bs";
 import { AiOutlineUnorderedList } from "react-icons/ai";
+import { getAllPlaces } from "../redux/actions/places";
 const AccountPage = () => {
   let { subpage } = useParams();
   const isLoading = useSelector((state) => state.loading.isLoading);
+  const dispatch = useDispatch();
   const userData = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    try {
+      console.log("dispatching allPlaces");
+      dispatch(getAllPlaces());
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   if (isLoading) {
     return <h1>loading....</h1>;

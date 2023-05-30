@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
 import perksList from "../constant/perks";
 import {
   TfiClose,
@@ -12,11 +12,19 @@ import {
 } from "react-icons/all";
 import axios from "axios";
 import "../axiosConfig";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createPlaces } from "../redux/actions/places";
+import PlacesCard from "./PlacesCard";
+import SinglePlace from "./SinglePlace";
 
 const Places = () => {
-  const { action } = useParams();
+  const location = useLocation();
+
+  const { pathname } = location;
+  const basename = pathname.split("/").pop();
+
+  const navigate = useNavigate();
+  const { id } = useParams();
   const [showPerks, SetShowPerks] = useState(false);
   const [perksArray, setPerksArray] = useState([]);
   const [values, setValues] = useState({
@@ -33,6 +41,8 @@ const Places = () => {
   const [photosValue, setPhotosValue] = useState("");
 
   const dispatch = useDispatch();
+  const placesData = useSelector((state) => state.places.placesInfo);
+  console.log(placesData);
 
   const getIconComponent = (logo) => {
     switch (logo) {
@@ -159,25 +169,16 @@ const Places = () => {
     e.preventDefault();
     try {
       dispatch(createPlaces(values));
-      console.log("success");
+      navigate("/account/places");
     } catch (error) {
       console.log(error);
     }
   };
-  //  title: "",
-  //   address: "",
-  //   photos: [],
-  //   description: "",
-  //   perksCollection: [],
-  //   extraInfo: "",
-  //   checkIn: "",
-  //   checkOut: "",
-  //   maxGuest: "",
 
   return (
     <div className=" flex flex-col justify-center items-center mt-8 font-poppins h-full mb-8 mx-auto px-4">
-      {action !== "new" && (
-        <div className="text-center ">
+      {basename === "places" && (
+        <div className="text-center mb-8 ">
           <Link
             className="link-primary flex max-w- gap-1"
             to={"/account/places/new"}
@@ -188,7 +189,14 @@ const Places = () => {
         </div>
       )}
 
-      {action === "new" && (
+      {basename === "places" &&
+        placesData.length > 0 &&
+        placesData.map((place, i) => (
+          <div className="self-start" key={i}>
+            <PlacesCard place={place} />
+          </div>
+        ))}
+      {basename === "new" && (
         <div className="self-start w-full">
           <form
             onSubmit={handlePlaceSubmition}
