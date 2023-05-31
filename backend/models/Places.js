@@ -17,7 +17,7 @@ const PlaceSchema = new mongoose.Schema({
   description: {
     type: String,
   },
-  perks: {
+  perksCollection: {
     type: [String],
   },
   extraInfo: {

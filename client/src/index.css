@@ -27,5 +27,5 @@ input[type="number"] {
 }
 
 textarea {
-  @apply w-full h-[100px] border rounded-xl py-2 px-3 my-1 font-poppins;
+  @apply w-full h-[150px] border rounded-xl py-2 px-3 my-1 font-poppins;
 }

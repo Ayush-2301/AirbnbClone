@@ -1,15 +1,21 @@
-import { IoReturnUpBack } from "react-icons/io5";
 import {
   CREATE_PLACES_ERROR,
   CREATE_PLACES_SUCCESS,
   FETCH_PLACES_ERROR,
   FETCH_PLACES_SUCCESS,
+  FETCH_SINGLE_PLACE_ERROR,
+  FETCH_SINGLE_PLACE_SUCCESS,
   SET_LOADING,
+  EDIT_PLACE_SUCCESS,
+  EDIT_PLACE_ERROR,
+  EDIT_PROGRESS,
 } from "../actions/types";
 
 const initalState = {
   placesInfo: [],
+  singlePlaceInfo: null,
   error: false,
+  editComplete: null,
 };
 
 const placesReducer = (state = initalState, action) => {
@@ -29,12 +35,45 @@ const placesReducer = (state = initalState, action) => {
       return {
         ...state,
         placesInfo: action.payload.places,
+        singlePlaceInfo: null,
         error: false,
       };
     case FETCH_PLACES_ERROR:
       return {
         ...state,
         error: true,
+      };
+    case FETCH_SINGLE_PLACE_SUCCESS:
+      return {
+        ...state,
+        singlePlaceInfo: action.payload,
+        error: false,
+      };
+    case FETCH_SINGLE_PLACE_ERROR: {
+      return {
+        ...state,
+        singlePlaceInfo: null,
+        error: true,
+      };
+    }
+    case EDIT_PLACE_SUCCESS: {
+      return {
+        ...state,
+        singlePlaceInfo: action.payload,
+        editComplete: true,
+        error: false,
+      };
+    }
+    case EDIT_PLACE_ERROR:
+      return {
+        ...state,
+        editComplete: false,
+        error: true,
+      };
+    case EDIT_PROGRESS:
+      return {
+        ...state,
+        editComplete: action.payload,
       };
     default:
       return state;

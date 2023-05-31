@@ -5,7 +5,7 @@ const cors = require("cors");
 const app = express();
 const Places = require("./models/Places");
 const connectDB = require("./db/connect");
-const authenticateUser = require("./middleware/authentication");
+// const authenticateUser = require("./middleware/authentication");
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
 
@@ -17,7 +17,7 @@ app.use(cors());
 app.use("/uploads", express.static(__dirname + "/controllers/uploads"));
 
 app.use("/auth", authRouter);
-app.use("/user/places", authenticateUser, userRouter);
+app.use("/user/places", userRouter);
 
 app.get("/delete", async (req, res) => {
   await Places.deleteMany({});

@@ -3,6 +3,7 @@ const { StatusCodes } = require("http-status-codes");
 const Place = require("../models/Places");
 const fs = require("fs");
 const pathFinder = require("path");
+const { STATUS_CODES } = require("http");
 
 const uploadPhotos = async (req, res) => {
   const { link } = req.body;
@@ -38,11 +39,48 @@ const getAllPlaces = async (req, res) => {
   res.status(StatusCodes.OK).json({ places, count: places.length });
 };
 
+const getSinglePlace = async (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  const place = await Place.findOne({ _id: id });
+  res.status(StatusCodes.OK).json(place);
+};
+
+const updatePlace = async (req, res) => {
+  const {
+    body: {
+      title,
+      address,
+      photos,
+      description,
+      perksCollection,
+      extraInfo,
+      checkIn,
+      checkOut,
+      maxGuest,
+    },
+    user: { userId },
+    params: { id },
+  } = req;
+
+  const place = await Place.findByIdAndUpdate(
+    {
+      _id: id,
+      owner: userId,
+    },
+    req.body,
+    { new: true, runValidators: true }
+  );
+  res.status(StatusCodes.OK).json(place);
+};
+
 module.exports = {
   uploadPhotos,
   uploadPhotosByDevice,
   createPlaces,
   getAllPlaces,
+  getSinglePlace,
+  updatePlace,
 };
 
 // const deletePhotos = (req, res) => {

@@ -9,6 +9,8 @@ import {
 import { Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "./redux/actions/auth";
+import { Places, Profile, PlacesForm } from "./components";
+// import PlacesForm from "./components/PlacesForm";
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -21,9 +23,14 @@ const App = () => {
           <Route index element={<IndexPage />} />
           <Route path="/auth/login" element={<LoginPage />} />
           <Route path="/auth/register" element={<RegisterPage />} />
-          <Route path="/account/:subpage?" element={<AccountPage />} />
-          <Route path="/account/:subpage/new" element={<AccountPage />} />
-          <Route path="/account/:subpage/:id" element={<AccountPage />} />
+          <Route path="/account" element={<AccountPage />}>
+            <Route path="/account" element={<Profile />} />
+            <Route path="/account/places" element={<Places />} />
+            <Route path="/account/places/new" element={<Places />} />
+            <Route path="/account/places/:id" element={<Places />} />
+          </Route>
+          {/* <Route path="/account/places" element={<Places />} />
+          <Route path="/account/:subpage/:id" element={<AccountPage />} /> */}
         </Route>
       </Routes>
     </div>
