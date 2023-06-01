@@ -32,6 +32,9 @@ const PlaceSchema = new mongoose.Schema({
   maxGuest: {
     type: Number,
   },
+  price: {
+    type: Number,
+  },
 });
 
 module.exports = mongoose.model("Place", PlaceSchema);

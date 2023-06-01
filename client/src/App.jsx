@@ -5,12 +5,13 @@ import {
   RegisterPage,
   IndexPage,
   AccountPage,
+  SinglePlace,
 } from "./pages/index";
 import { Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "./redux/actions/auth";
-import { Places, Profile, PlacesForm } from "./components";
-// import PlacesForm from "./components/PlacesForm";
+import { Places, Profile } from "./components";
+
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -20,7 +21,7 @@ const App = () => {
     <div className="relative">
       <Routes>
         <Route path="/" element={<LandingPage />}>
-          <Route index element={<IndexPage />} />
+          <Route index path="/" element={<IndexPage />} />
           <Route path="/auth/login" element={<LoginPage />} />
           <Route path="/auth/register" element={<RegisterPage />} />
           <Route path="/account" element={<AccountPage />}>
@@ -29,8 +30,7 @@ const App = () => {
             <Route path="/account/places/new" element={<Places />} />
             <Route path="/account/places/:id" element={<Places />} />
           </Route>
-          {/* <Route path="/account/places" element={<Places />} />
-          <Route path="/account/:subpage/:id" element={<AccountPage />} /> */}
+          <Route path="/place/:id" element={<SinglePlace />} />
         </Route>
       </Routes>
     </div>

@@ -1,25 +1,14 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  Link,
-  Navigate,
-  useParams,
-  useLocation,
-  Routes,
-  Route,
-} from "react-router-dom";
-import { Profile, Places } from "../components/index";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import { RiHotelLine } from "react-icons/ri";
 import { BsFillPersonFill } from "react-icons/bs";
 import { AiOutlineUnorderedList } from "react-icons/ai";
-import { getAllPlaces } from "../redux/actions/places";
+import { getAllUserPlaces } from "../redux/actions/places";
 const Navigation = () => {
   const location = useLocation();
   const { pathname } = location;
   let basename = pathname.split("/").pop();
-
-  console.log(basename);
-  // let { subpage } = useParams();
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.loading.isLoading);
   const userData = useSelector((state) => state.auth);
@@ -27,7 +16,7 @@ const Navigation = () => {
   useEffect(() => {
     try {
       console.log("dispatching allPlaces");
-      dispatch(getAllPlaces());
+      dispatch(getAllUserPlaces());
     } catch (error) {
       console.log(error);
     }

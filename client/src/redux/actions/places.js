@@ -11,6 +11,8 @@ import {
   EDIT_PLACE_ERROR,
   EDIT_PLACE_SUCCESS,
   EDIT_PROGRESS,
+  FETCH_ALL_PLACES_ERROR,
+  FETCH_ALL_PLACES_SUCCESS,
 } from "./types";
 
 export const createPlaces = (placeDetail) => async (dispatch) => {
@@ -24,10 +26,10 @@ export const createPlaces = (placeDetail) => async (dispatch) => {
     dispatch({ type: SET_LOADING, payload: false });
   }
 };
-export const getAllPlaces = () => async (dispatch) => {
+export const getAllUserPlaces = () => async (dispatch) => {
   try {
     dispatch({ type: SET_LOADING, payload: true });
-    const { data } = await axios.get("/user/places/getAllPlaces");
+    const { data } = await axios.get("/user/places/getAllUserPlaces");
     dispatch({ type: FETCH_PLACES_SUCCESS, payload: data });
     dispatch({ type: SET_LOADING, payload: false });
   } catch (error) {
@@ -58,6 +60,17 @@ export const updatePlace = (id, values) => async (dispatch) => {
     dispatch({ type: SET_LOADING, payload: false });
   } catch (error) {
     dispatch({ type: EDIT_PLACE_ERROR });
+    dispatch({ type: SET_LOADING, payload: false });
+  }
+};
+export const getAllPlace = () => async (dispatch) => {
+  try {
+    dispatch({ type: SET_LOADING, payload: true });
+    const { data } = await axios.get("/getAllplaces");
+    dispatch({ type: FETCH_ALL_PLACES_SUCCESS, payload: data });
+    dispatch({ type: SET_LOADING, payload: false });
+  } catch (error) {
+    dispatch({ type: FETCH_ALL_PLACES_ERROR });
     dispatch({ type: SET_LOADING, payload: false });
   }
 };

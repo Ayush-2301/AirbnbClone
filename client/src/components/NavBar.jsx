@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 const NavBar = () => {
   const userName = useSelector((state) => state.auth.user);
-  // console.log(userName);
   return (
     <div className="flex justify-between items-center  p-4  border-b">
       <div>

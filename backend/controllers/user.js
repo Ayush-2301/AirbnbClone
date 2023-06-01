@@ -34,14 +34,13 @@ const createPlaces = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ place });
 };
 
-const getAllPlaces = async (req, res) => {
+const getAllUserPlaces = async (req, res) => {
   const places = await Place.find({ owner: req.user.userId });
   res.status(StatusCodes.OK).json({ places, count: places.length });
 };
 
 const getSinglePlace = async (req, res) => {
   const id = req.params.id;
-  console.log(id);
   const place = await Place.findOne({ _id: id });
   res.status(StatusCodes.OK).json(place);
 };
@@ -58,6 +57,7 @@ const updatePlace = async (req, res) => {
       checkIn,
       checkOut,
       maxGuest,
+      price,
     },
     user: { userId },
     params: { id },
@@ -74,13 +74,19 @@ const updatePlace = async (req, res) => {
   res.status(StatusCodes.OK).json(place);
 };
 
+const getAllPlaces = async (req, res) => {
+  const places = await Place.find();
+  res.status(StatusCodes.OK).json({ places, count: places.length });
+};
+
 module.exports = {
   uploadPhotos,
   uploadPhotosByDevice,
   createPlaces,
-  getAllPlaces,
+  getAllUserPlaces,
   getSinglePlace,
   updatePlace,
+  getAllPlaces,
 };
 
 // const deletePhotos = (req, res) => {

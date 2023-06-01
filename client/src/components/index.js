@@ -3,4 +3,5 @@ import Profile from "./Profile";
 import Places from "./Places";
 import PlacesCard from "./PlacesCard";
 import PlacesForm from "./PlacesForm";
-export { NavBar, Profile, Places, PlacesCard, PlacesForm };
+import IndexPlaceCard from "./IndexPlaceCard";
+export { NavBar, Profile, Places, PlacesCard, PlacesForm, IndexPlaceCard };

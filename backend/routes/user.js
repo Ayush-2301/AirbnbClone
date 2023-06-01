@@ -4,7 +4,7 @@ const {
   uploadPhotos,
   uploadPhotosByDevice,
   createPlaces,
-  getAllPlaces,
+  getAllUserPlaces,
   getSinglePlace,
   updatePlace,
 } = require("../controllers/user");
@@ -21,9 +21,9 @@ router.post(
   uploadPhotosByDevice
 );
 router.post("/create", authenticateUser, createPlaces);
-router.get("/getAllPlaces", authenticateUser, getAllPlaces);
-router.get("/getSinglePlace/:id", getSinglePlace);
+router.get("/getAllUserPlaces", authenticateUser, getAllUserPlaces);
 router.patch("/updatePlace/:id", authenticateUser, updatePlace);
+router.get("/getSinglePlace/:id", getSinglePlace);
 module.exports = router;
 
 // router.post("/delete-by-link", deletePhotos);

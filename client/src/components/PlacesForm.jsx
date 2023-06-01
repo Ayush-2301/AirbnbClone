@@ -10,13 +10,15 @@ import {
   MdPets,
   AiFillUnlock,
   FaTrashAlt,
+  AiFillStar,
+  AiOutlineStar,
 } from "react-icons/all";
 import axios from "axios";
 import "../axiosConfig";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createPlaces,
-  getAllPlaces,
+  getAllUserPlaces,
   getSinglePlace,
   updatePlace,
 } from "../redux/actions/places";
@@ -36,6 +38,7 @@ const PlacesForm = () => {
     checkIn: "",
     checkOut: "",
     maxGuest: "",
+    price: "",
   });
   const [photosValue, setPhotosValue] = useState("");
   const dispatch = useDispatch();
@@ -63,6 +66,7 @@ const PlacesForm = () => {
         checkIn,
         checkOut,
         maxGuest,
+        price,
       } = placeData;
       setValues({
         title,
@@ -74,6 +78,7 @@ const PlacesForm = () => {
         checkIn: checkIn.toString(),
         checkOut: checkOut.toString(),
         maxGuest: maxGuest.toString(),
+        price: price.toString(),
       });
       const filtered = perksList.filter((obj) =>
         perksCollection.includes(obj.name)
@@ -209,12 +214,22 @@ const PlacesForm = () => {
     setValues({ ...values, photos: newPhotos });
   }
 
+  function handleCoverPhotoSelection(photo) {
+    const addeddPhotosWithoutSelection = values.photos.filter(
+      (filename) => filename != photo
+    );
+    setValues({
+      ...values,
+      photos: [photo, ...addeddPhotosWithoutSelection],
+    });
+  }
+
   const handlePlaceSubmition = (e) => {
     e.preventDefault();
     try {
       if (id) {
         dispatch(updatePlace(id, values));
-        dispatch(getAllPlaces());
+        dispatch(getAllUserPlaces());
       } else {
         dispatch(createPlaces(values));
       }
@@ -274,6 +289,16 @@ const PlacesForm = () => {
                 values.photos.map((photo, i) => {
                   return (
                     <div key={i} className="relative">
+                      <div
+                        className="absolute bottom-[5px] left-[5px] text-white cursor-pointer bg-[#000000] bg-opacity-50 p-2 rounded-full flex justify-center items-center"
+                        onClick={() => handleCoverPhotoSelection(photo)}
+                      >
+                        {i === 0 ? (
+                          <AiFillStar size={15} />
+                        ) : (
+                          <AiOutlineStar size={15} />
+                        )}
+                      </div>
                       <img
                         className="rounded-xl w-[150px] h-[100px] object-cover "
                         src={`http://localhost:3000/uploads/${photo}`}
@@ -384,6 +409,16 @@ const PlacesForm = () => {
                   placeholder="maximum guest"
                   name="maxGuest"
                   value={values.maxGuest}
+                  onChange={handleValueChange}
+                />
+              </div>
+              <div className="w-full">
+                <p className="text-xl ml-2">Price per night</p>
+                <input
+                  type="number"
+                  placeholder="Price"
+                  name="price"
+                  value={values.price}
                   onChange={handleValueChange}
                 />
               </div>

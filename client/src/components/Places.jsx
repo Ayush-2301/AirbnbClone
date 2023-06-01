@@ -4,7 +4,7 @@ import { AiOutlinePlus } from "react-icons/all";
 
 import "../axiosConfig";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllPlaces } from "../redux/actions/places";
+import { getAllUserPlaces } from "../redux/actions/places";
 import PlacesCard from "./PlacesCard";
 import PlacesForm from "./PlacesForm";
 const Places = () => {
@@ -15,10 +15,10 @@ const Places = () => {
   const dispatch = useDispatch();
   const placesData = useSelector((state) => state.places.placesInfo);
   const editComplete = useSelector((state) => state.places.editComplete);
-  console.log(editComplete);
+
   useEffect(() => {
     try {
-      dispatch(getAllPlaces());
+      dispatch(getAllUserPlaces());
     } catch (error) {
       console.log(error);
     }

@@ -60,7 +60,6 @@ export const setUser = () => (dispatch) => {
   const user = localStorage.getItem("user");
   if (user) {
     const newUser = JSON.parse(user);
-    console.log(newUser.user);
     dispatch({ type: SET_USER, payload: newUser.user });
   }
   dispatch({ type: SET_LOADING, payload: false });

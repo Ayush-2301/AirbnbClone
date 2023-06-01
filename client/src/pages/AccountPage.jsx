@@ -9,24 +9,7 @@ const AccountPage = () => {
   const location = useLocation();
   const { pathname } = location;
   let basename = pathname.split("/")?.[2];
-  // const isLoading = useSelector((state) => state.loading.isLoading);
   const userData = useSelector((state) => state.auth);
-
-  // useEffect(() => {
-  //   try {
-  //     console.log("dispatching allPlaces");
-  //     dispatch(getAllPlaces());
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }, []);
-
-  // if (isLoading) {
-  //   return <h1>loading....</h1>;
-  // }
-  // if (!isLoading && !userData.user) {
-  //   return <Navigate to={"/auth/login"} />;
-  // }
   if (!userData.user) {
     return <Navigate to={"/auth/login"} />;
   }

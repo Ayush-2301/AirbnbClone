@@ -9,9 +9,12 @@ import {
   EDIT_PLACE_SUCCESS,
   EDIT_PLACE_ERROR,
   EDIT_PROGRESS,
+  FETCH_ALL_PLACES_ERROR,
+  FETCH_ALL_PLACES_SUCCESS,
 } from "../actions/types";
 
 const initalState = {
+  allPlaceData: [],
   placesInfo: [],
   singlePlaceInfo: null,
   error: false,
@@ -75,6 +78,18 @@ const placesReducer = (state = initalState, action) => {
         ...state,
         editComplete: action.payload,
       };
+    case FETCH_ALL_PLACES_SUCCESS:
+      return {
+        ...state,
+        allPlaceData: action.payload.places,
+        error: false,
+      };
+    case FETCH_ALL_PLACES_ERROR:
+      return {
+        ...state,
+        error: true,
+      };
+
     default:
       return state;
   }
