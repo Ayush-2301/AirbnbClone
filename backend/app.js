@@ -8,6 +8,7 @@ const connectDB = require("./db/connect");
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
 const placeRouter = require("./routes/place");
+const bookingRouter = require("./routes/booking");
 
 const notFoundMiddleware = require("./middleware/not-found");
 const errorHandlesMiddleware = require("./middleware/error-handler");
@@ -19,6 +20,7 @@ app.use("/uploads", express.static(__dirname + "/controllers/uploads"));
 app.use("/auth", authRouter);
 app.use("/user/places", userRouter);
 app.use("/", placeRouter);
+app.use("/booking", bookingRouter);
 
 app.get("/delete", async (req, res) => {
   await Places.deleteMany({});

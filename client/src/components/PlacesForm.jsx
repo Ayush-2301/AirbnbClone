@@ -204,7 +204,6 @@ const PlacesForm = () => {
   };
 
   function handlePhotosCollection(filename) {
-    console.log(filename);
     setValues({ ...values, photos: [...values.photos, filename] });
     setPhotosValue("");
   }

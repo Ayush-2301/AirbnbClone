@@ -6,11 +6,12 @@ import {
   IndexPage,
   AccountPage,
   SinglePlace,
+  SingleBooking,
 } from "./pages/index";
 import { Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "./redux/actions/auth";
-import { Places, Profile } from "./components";
+import { Places, Profile, Bookings } from "./components";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -26,11 +27,13 @@ const App = () => {
           <Route path="/auth/register" element={<RegisterPage />} />
           <Route path="/account" element={<AccountPage />}>
             <Route path="/account" element={<Profile />} />
+            <Route path="/account/bookings" element={<Bookings />} />
             <Route path="/account/places" element={<Places />} />
             <Route path="/account/places/new" element={<Places />} />
             <Route path="/account/places/:id" element={<Places />} />
           </Route>
           <Route path="/place/:id" element={<SinglePlace />} />
+          <Route path="/bookings/:id" element={<SingleBooking />} />
         </Route>
       </Routes>
     </div>

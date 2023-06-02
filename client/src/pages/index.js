@@ -4,6 +4,7 @@ import RegisterPage from "./RegisterPage.jsx";
 import IndexPage from "./IndexPage.jsx";
 import AccountPage from "./AccountPage.jsx";
 import SinglePlace from "./SinglePlace.jsx";
+import SingleBooking from "./SingleBooking.jsx";
 export {
   LandingPage,
   LoginPage,
@@ -11,4 +12,5 @@ export {
   IndexPage,
   AccountPage,
   SinglePlace,
+  SingleBooking,
 };

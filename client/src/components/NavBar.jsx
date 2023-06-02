@@ -5,13 +5,15 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { CgProfile } from "react-icons/cg";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import logotext from "../assets/pngwing.com.png";
 const NavBar = () => {
   const userName = useSelector((state) => state.auth.user);
   return (
-    <div className="flex justify-between items-center  p-4  border-b">
-      <div>
-        <Link to={"/"}>
+    <div className="flex justify-between items-center  px-4 pb-4 border-b">
+      <div className="flex gap-2 items-center justify-center">
+        <Link to={"/"} className="flex justify-center items-center">
           <img className="w-[35px]" src={logo} alt="airnb logo" />
+          <img className="w-[80px]" src={logotext} alt="" />
         </Link>
       </div>
       <div className="hidden sm:flex border p-2 px-4 font-poppins rounded-full shadow text-[14px] hover:shadow-md transition-shadow ease-in hover:cursor-pointer">

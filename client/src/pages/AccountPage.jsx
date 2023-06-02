@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link, Navigate, useLocation } from "react-router-dom";
-import { Profile, Places } from "../components/index";
+import { Profile, Places, Bookings } from "../components/index";
 import { RiHotelLine } from "react-icons/ri";
 import { BsFillPersonFill } from "react-icons/bs";
 import { AiOutlineUnorderedList } from "react-icons/ai";
@@ -43,6 +43,7 @@ const AccountPage = () => {
         </Link>
       </div>
       {basename === "profile" && <Profile />}
+      {basename === "bookings" && <Bookings />}
       {basename === "places" && <Places />}
     </div>
   );

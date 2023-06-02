@@ -3,7 +3,6 @@ const { StatusCodes } = require("http-status-codes");
 const Place = require("../models/Places");
 const fs = require("fs");
 const pathFinder = require("path");
-const { STATUS_CODES } = require("http");
 
 const uploadPhotos = async (req, res) => {
   const { link } = req.body;

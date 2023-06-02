@@ -7,9 +7,7 @@ const IndexPage = () => {
   useEffect(() => {
     dispatch(getAllPlace());
   }, [dispatch]);
-  let allPlaceData = useSelector((state) => state.places.allPlaceData);
-
-  allPlaceData = [...allPlaceData, ...allPlaceData];
+  const allPlaceData = useSelector((state) => state.places.allPlaceData);
   return (
     <div className="mt-8 grid grid-col-2 md:grid-cols-3 lg:grid-cols-4 gap-5 p-4">
       {allPlaceData &&

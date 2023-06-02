@@ -1,18 +1,59 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getSinglePlace } from "../redux/actions/places";
+import { createBooking } from "../redux/actions/booking";
 import { TbGridDots } from "react-icons/tb";
 import { TfiClose } from "react-icons/tfi";
 import { GoLocation } from "react-icons/go";
+import { differenceInCalendarDays } from "date-fns";
 const SinglePlace = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getSinglePlace(id));
   }, [dispatch]);
   const singlePlaceData = useSelector((state) => state.places.singlePlaceInfo);
+
   const [showAllphotos, setShowAllphotos] = useState(false);
+  const [values, setValues] = useState({
+    checkIn: "",
+    checkOut: "",
+    numberOfguest: 1,
+  });
+  const [bookingData, setBookingData] = useState({
+    name: useSelector((state) => state.auth.user),
+    phoneNumber: "",
+  });
+
+  const handleChange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
+  let numberOfdays = 0;
+  if (values.checkIn && values.checkOut) {
+    numberOfdays = differenceInCalendarDays(
+      new Date(values.checkOut),
+      new Date(values.checkIn)
+    );
+  }
+  const handleBooking = (e) => {
+    e.preventDefault();
+    try {
+      const data = {
+        name: bookingData.name,
+        phone: bookingData.phoneNumber,
+        checkIn: values.checkIn,
+        checkOut: values.checkOut,
+        price: numberOfdays * singlePlaceData.price,
+        place: singlePlaceData._id,
+      };
+      dispatch(createBooking(data));
+      navigate("/account/bookings");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   if (!singlePlaceData) return <div>...loading</div>;
   if (showAllphotos)
     return (
@@ -46,20 +87,21 @@ const SinglePlace = () => {
       </div>
     );
   return (
-    <div className=" mt-8 flex flex-col min-h-full mx-20 px-8 py-8 justify-center items-center">
-      <div className="self-start">
+    <div className=" mt-4 flex flex-col min-h-full mx-20 px-8 py-8 justify-center items-center ">
+      <div className=" w-[90%]">
         <div className="text-3xl font-semibold">{singlePlaceData.title}</div>
         <div className="underline font-semibold flex gap-1 items-center">
           <GoLocation size={20} />
           {singlePlaceData.address}
         </div>
       </div>
-      <div className="grid grid-cols-[2fr_1fr] gap-2 m-8 mb-16 w-max border  ">
+      <div className="grid grid-cols-[2.5fr_1fr] gap-2 my-8 mb-16  w-[90%]  ">
         <div>
           {singlePlaceData.photos[0] && (
             <div>
               <img
-                className=" object-cover aspect-square h-[600px] w-[800px] rounded-l-2xl"
+                onClick={() => setShowAllphotos(true)}
+                className=" object-cover  h-[450px] w-full rounded-l-2xl cursor-pointer"
                 src={`http://localhost:3000/uploads/${singlePlaceData.photos[0]}`}
                 alt=""
               />
@@ -68,13 +110,15 @@ const SinglePlace = () => {
         </div>
         <div className="grid relative">
           <img
-            className="object-cover aspect-square rounded-tr-2xl w-[300px]"
+            onClick={() => setShowAllphotos(true)}
+            className="object-cover  rounded-tr-2xl w-full h-[225px] cursor-pointer"
             src={`http://localhost:3000/uploads/${singlePlaceData.photos[1]}`}
             alt=""
           />
           <div className="overflow-hidden rounded-br-2xl ">
             <img
-              className="object-cover aspect-square w-[300px]  relative top-2 "
+              onClick={() => setShowAllphotos(true)}
+              className="object-cover  w-full h-[225px]  relative top-2 cursor-pointer  "
               src={`http://localhost:3000/uploads/${singlePlaceData.photos[2]}`}
               alt=""
             />
@@ -89,33 +133,103 @@ const SinglePlace = () => {
           </button>
         </div>
       </div>
-      <div className="grid grid-cols-[3fr_1fr] gap-2">
-        <div>
+      <div className="grid grid-cols-[3fr_1fr] gap-2 w-[90%] font-poppins">
+        <div className="mr-2">
           <div className="text-3xl font-semibold">Description</div>
-          <div>{singlePlaceData.description}</div>
-        </div>
-        <div className="flex flex-col border rounded-2xl shadow-md p-4">
-          <div className="text-center text-2xl font-medium">
-            Price: ₹{singlePlaceData.price} night
+          <div className="my-4 leading-6 ">{singlePlaceData.description}</div>
+          <div className="font-semibold text-lg ">
+            Check In :
+            <span className="font-normal"> {singlePlaceData.checkIn}</span>
           </div>
-          <div className="border rounded-2xl mt-4">
+          <div className="font-semibold text-lg ">
+            Check Out :
+            <span className="font-normal"> {singlePlaceData.checkOut}</span>
+          </div>
+          <div className="font-semibold text-lg ">
+            Maximum guest allowed :
+            <span className="font-normal"> {singlePlaceData.maxGuest}</span>
+          </div>
+        </div>
+        <div className="flex flex-col border rounded-2xl shadow-lg p-4 font-poppins ">
+          <div className="ml-1 text-xl font-semibold">
+            Price:{" "}
+            <span className="font-normal">₹{singlePlaceData.price}/night</span>
+          </div>
+          <div className="border rounded-2xl mt-2">
             <div className="flex  ">
               <div className="grow border-r py-3 px-4">
-                <label className="text-lg font-medium">Check in</label>
-                <input type="date" />
+                <label className="text-lg font-semibold ">Check in</label>
+                <input
+                  type="date"
+                  value={values.checkIn}
+                  name="checkIn"
+                  className="text-gray-500"
+                  onChange={handleChange}
+                />
               </div>
               <div className="grow py-3 px-4">
-                <label className="text-lg font-medium"> Check out</label>
-                <input type="date" />
+                <label className="text-lg font-semibold"> Check out</label>
+                <input
+                  type="date"
+                  value={values.checkOut}
+                  name="checkOut"
+                  className="text-gray-500"
+                  onChange={handleChange}
+                />
               </div>
             </div>
-            <div className="border-t p-4">
-              <label className="text-lg font-medium">No. of Guest</label>
-              <input type="number" className="mb-0" placeholder="1" />
+            <div className="border-t px-4 pt-2">
+              <label className="text-lg font-semibold">No. of Guest</label>
+              <input
+                type="number"
+                className="text-gray-500"
+                placeholder="1"
+                value={values.numberOfguest}
+                name="numberOfguest"
+                onChange={handleChange}
+              />
             </div>
+            {numberOfdays > 0 && bookingData.name && (
+              <div className=" px-4 py-2">
+                <label className="text-lg font-semibold">Phone Number</label>
+                <input
+                  type="number"
+                  className="text-gray-500"
+                  placeholder="+91"
+                  value={bookingData.phoneNumber}
+                  name="phoneNumber"
+                  onChange={(e) => {
+                    setBookingData({
+                      ...bookingData,
+                      phoneNumber: e.target.value,
+                    });
+                  }}
+                />
+              </div>
+            )}
           </div>
-          <button className="primary mt-4">Reserve</button>
+          <button
+            onClick={handleBooking}
+            className="primary mt-4 font-semibold text-lg"
+          >
+            Reserve
+          </button>
+          {numberOfdays > 0 && (
+            <div className="p-4 font-poppins">
+              <div className="text-xl font-semibold">Total</div>
+              <div className="flex justify-between text-gray-500 ">
+                <div>
+                  ₹{singlePlaceData.price} x {numberOfdays} night{" "}
+                </div>
+                <div>₹{singlePlaceData.price * numberOfdays} </div>
+              </div>
+            </div>
+          )}
         </div>
+      </div>
+      <div className="w-[90%] mt-4">
+        <div className="text-3xl font-semibold">Extra Info</div>
+        <div className="my-4 leading-6">{singlePlaceData.extraInfo}</div>
       </div>
     </div>
   );
