@@ -1,5 +1,5 @@
 import axios from "axios";
-axios.defaults.baseURL = "http://localhost:3000";
+axios.defaults.baseURL = "https://airbnb-owrj.onrender.com/";
 
 axios.interceptors.request.use(function (req) {
   const user = localStorage.getItem("user");

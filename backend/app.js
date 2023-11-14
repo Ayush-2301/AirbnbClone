@@ -22,11 +22,6 @@ app.use("/user/places", userRouter);
 app.use("/", placeRouter);
 app.use("/booking", bookingRouter);
 
-app.get("/delete", async (req, res) => {
-  await Places.deleteMany({});
-  res.json("delete");
-});
-
 app.use(notFoundMiddleware);
 app.use(errorHandlesMiddleware);
 
