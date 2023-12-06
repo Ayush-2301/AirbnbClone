@@ -61,7 +61,7 @@ const SingleBooking = () => {
                 <div className="w-[50%]">
                   <img
                     className="aspect-square object-cover"
-                    src={`http://localhost:3000/uploads/${photo}`}
+                    src={`https://airbnb-owrj.onrender.com/uploads/${photo}`}
                     alt=""
                   />
                 </div>
@@ -119,7 +119,7 @@ const SingleBooking = () => {
               <img
                 onClick={() => setShowAllPhotos(true)}
                 className="object-cover h-[450px] w-full rounded-l-2xl cursor-pointer"
-                src={`http://localhost:3000/uploads/${singlePlaceData.photos[0]}`}
+                src={`https://airbnb-owrj.onrender.com/uploads/${singlePlaceData.photos[0]}`}
                 alt=""
               />
             </div>
@@ -129,14 +129,14 @@ const SingleBooking = () => {
           <img
             onClick={() => setShowAllPhotos(true)}
             className="object-cover rounded-tr-2xl w-full h-[225px] cursor-pointer"
-            src={`http://localhost:3000/uploads/${singlePlaceData.photos[1]}`}
+            src={`https://airbnb-owrj.onrender.com/uploads/${singlePlaceData.photos[1]}`}
             alt=""
           />
           <div className="overflow-hidden rounded-br-2xl">
             <img
               onClick={() => setShowAllPhotos(true)}
               className="object-cover w-full h-[225px] relative top-2 cursor-pointer"
-              src={`http://localhost:3000/uploads/${singlePlaceData.photos[2]}`}
+              src={`https://airbnb-owrj.onrender.com/uploads/${singlePlaceData.photos[2]}`}
               alt=""
             />
           </div>

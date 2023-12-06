@@ -13,7 +13,7 @@ const PlacesCard = ({ place }) => {
         ) : (
           <img
             className="object-cover w-full h-[200px] rounded-md"
-            src={`http://localhost:3000/uploads/${place.photos[0]}`}
+            src={`https://airbnb-owrj.onrender.com/uploads/${place.photos[0]}`}
             alt=""
           />
         )}

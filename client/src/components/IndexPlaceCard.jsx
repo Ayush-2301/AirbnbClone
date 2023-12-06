@@ -8,7 +8,7 @@ const IndexPlaceCard = ({ placeData }) => {
     >
       <img
         className="object-cover aspect-square  rounded-xl mb-2"
-        src={`http://localhost:3000/uploads/${placeData.photos[0]}`}
+        src={`https://airbnb-owrj.onrender.com/uploads/${placeData.photos[0]}`}
       />
       <div className="font-semibold leading-5 truncate ">
         {placeData.address}

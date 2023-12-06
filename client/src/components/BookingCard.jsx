@@ -37,7 +37,7 @@ const BookingCard = ({ bookingData }) => {
         ) : (
           <img
             className="object-cover aspect-square w-full h-[200px] rounded-l-xl "
-            src={`http://localhost:3000/uploads/${place.photos[0]}`}
+            src={`https://airbnb-owrj.onrender.com/uploads/${place.photos[0]}`}
             alt=""
           />
         )}
