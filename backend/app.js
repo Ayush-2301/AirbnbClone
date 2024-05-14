@@ -25,14 +25,12 @@ app.use("/booking", bookingRouter);
 app.use(notFoundMiddleware);
 app.use(errorHandlesMiddleware);
 
-const port = process.env.PORT || 3000;
-
 const start = async () => {
   try {
     await connectDB(process.env.MONGO_URL);
 
-    app.listen(port, () => {
-      console.log(`Port is running on port ${port}`);
+    app.listen(4000, () => {
+      console.log(`Port is running on port ${4000}`);
     });
   } catch (error) {
     console.log(error);
