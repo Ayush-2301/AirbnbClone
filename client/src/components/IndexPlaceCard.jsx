@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+const SERVER_URL = import.meta.env.VITE_API_URL;
 const IndexPlaceCard = ({ placeData }) => {
   return (
     <Link
@@ -8,7 +9,7 @@ const IndexPlaceCard = ({ placeData }) => {
     >
       <img
         className="object-cover aspect-square  rounded-xl mb-2"
-        src={`https://airbnb-owrj.onrender.com/uploads/${placeData.photos[0]}`}
+        src={`${SERVER_URL}/uploads/${placeData.photos[0]}`}
       />
       <div className="font-semibold leading-5 truncate ">
         {placeData.address}

@@ -22,7 +22,7 @@ import {
   getSinglePlace,
   updatePlace,
 } from "../redux/actions/places";
-
+const SERVER_URL = import.meta.env.VITE_API_URL;
 const PlacesForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -300,7 +300,7 @@ const PlacesForm = () => {
                       </div>
                       <img
                         className="rounded-xl w-[150px] h-[100px] object-cover "
-                        src={`http://localhost:3000/uploads/${photo}`}
+                        src={`${SERVER_URL}/uploads/${photo}`}
                         alt=""
                       />
                       <div

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getSinglePlace } from "../redux/actions/places";
@@ -7,6 +7,7 @@ import { TbGridDots } from "react-icons/tb";
 import { TfiClose } from "react-icons/tfi";
 import { GoLocation } from "react-icons/go";
 import { differenceInCalendarDays } from "date-fns";
+const SERVER_URL = import.meta.env.VITE_API_URL;
 const SinglePlace = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -73,11 +74,11 @@ const SinglePlace = () => {
           </div>
           <div className="flex justify-center items-center flex-col gap-4">
             {singlePlaceData.photos.length > 0 &&
-              singlePlaceData.photos.map((photo) => (
-                <div className="w-[50%]">
+              singlePlaceData.photos.map((photo, i) => (
+                <div className="w-[50%]" key={i}>
                   <img
                     className="aspect-square object-cover"
-                    src={`https://airbnb-owrj.onrender.com/uploads/${photo}`}
+                    src={`${SERVER_URL}/uploads/${photo}`}
                     alt=""
                   />
                 </div>
@@ -102,7 +103,7 @@ const SinglePlace = () => {
               <img
                 onClick={() => setShowAllphotos(true)}
                 className=" object-cover  h-[450px] w-full rounded-l-2xl cursor-pointer"
-                src={`https://airbnb-owrj.onrender.com/uploads/${singlePlaceData.photos[0]}`}
+                src={`${SERVER_URL}/uploads/${singlePlaceData.photos[0]}`}
                 alt=""
               />
             </div>
@@ -112,14 +113,14 @@ const SinglePlace = () => {
           <img
             onClick={() => setShowAllphotos(true)}
             className="object-cover  rounded-tr-2xl w-full h-[225px] cursor-pointer"
-            src={`https://airbnb-owrj.onrender.com/uploads/${singlePlaceData.photos[1]}`}
+            src={`${SERVER_URL}/uploads/${singlePlaceData.photos[1]}`}
             alt=""
           />
           <div className="overflow-hidden rounded-br-2xl ">
             <img
               onClick={() => setShowAllphotos(true)}
               className="object-cover  w-full h-[225px]  relative top-2 cursor-pointer  "
-              src={`https://airbnb-owrj.onrender.com/uploads/${singlePlaceData.photos[2]}`}
+              src={`${SERVER_URL}/uploads/${singlePlaceData.photos[2]}`}
               alt=""
             />
           </div>

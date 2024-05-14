@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import ".././axiosConfig";
 import { format, differenceInCalendarDays } from "date-fns";
 import { AiTwotoneCalendar, AiOutlineArrowRight } from "react-icons/ai";
+const SERVER_URL = import.meta.env.VITE_API_URL;
 const BookingCard = ({ bookingData }) => {
   const [place, setPlace] = useState({});
 
@@ -37,7 +38,7 @@ const BookingCard = ({ bookingData }) => {
         ) : (
           <img
             className="object-cover aspect-square w-full h-[200px] rounded-l-xl "
-            src={`https://airbnb-owrj.onrender.com/uploads/${place.photos[0]}`}
+            src={`${SERVER_URL}/uploads/${place.photos[0]}`}
             alt=""
           />
         )}
