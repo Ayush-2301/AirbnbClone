@@ -16,6 +16,9 @@ const errorHandlesMiddleware = require("./middleware/error-handler");
 app.use(express.json());
 app.use(cors());
 app.use("/uploads", express.static(__dirname + "/controllers/uploads"));
+app.get("/", (req, res) => {
+  res.json("Hello");
+});
 
 app.use("/auth", authRouter);
 app.use("/user/places", userRouter);
